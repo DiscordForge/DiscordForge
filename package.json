@@ -1,0 +1,24 @@
+{
+  "name": "discordforge",
+  "version": "0.0.0",
+  "description": "DiscordForge - a plugin system for Discord.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/LewisTehMinerz/DiscordForge"
+  },
+  "keywords": [
+    "discord"
+  ],
+  "author": "LewisTehMinerz",
+  "license": "SEE LICENSE IN \"LICENSE\"",
+  "bin": {
+    "discordforge": "./index.js"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0"
+  }
+}
