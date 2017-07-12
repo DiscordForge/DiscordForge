@@ -20,3 +20,6 @@ Here are the steps to download DiscordForge:
 
 # How do I create a plugin?
 Please refer to our ["Creating a Plugin" wiki page](https://github.com/DiscordForge/DiscordForge/wiki/Creating-a-Plugin) for a guide on how to set up a repository and create a plugin.
+
+
+Anything else you need to know about DiscordForge is located at the [wiki](https://github.com/DiscordForge/DiscordForge/wiki).
