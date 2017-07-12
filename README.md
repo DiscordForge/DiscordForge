@@ -1,3 +1,3 @@
 <p align="center">
-	![DiscordForge](https://github.com/DiscordForge/DiscordForge/raw/master/discordforge.png "DiscordForge Banner")
+	<img src="https://github.com/DiscordForge/DiscordForge/raw/master/discordforge.png"></img>
 </p>
