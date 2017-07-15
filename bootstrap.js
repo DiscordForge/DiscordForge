@@ -1,6 +1,6 @@
 /**
 * DiscordForge - a plugin system for Discord.
-* Copyright (C) 2017 LewisTehMinerz
+* Copyright (C) 2017 DiscordForge Development
 * 
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
