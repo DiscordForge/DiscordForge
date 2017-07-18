@@ -2,7 +2,7 @@
 	<img alt="DiscordForge Banner" src="https://github.com/DiscordForge/DiscordForge/raw/master/discordforge.png"></img>
 </p>
 
-# What is DiscordForge?
+# What is it?
 DiscordForge is an unofficial plugin API for Discord. It allows people to write their own plugins and let people download them easily through the command line.
 
 # How does it work?
