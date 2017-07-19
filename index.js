@@ -20,3 +20,8 @@
 
 var args = require('minimist')(process.argv.slice(2));
 var _ = args._;
+
+// no args specified or command "help"
+if (_[0] == undefined || _[0] == "help") {
+    console.log("test");
+}

@@ -19,6 +19,7 @@
     "discordforge": "./index.js"
   },
   "dependencies": {
+    "command-line-usage": "^4.0.0",
     "minimist": "^1.2.0"
   }
 }
