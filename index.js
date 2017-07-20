@@ -30,6 +30,7 @@ try {
 const options = require('minimist')(argv);
 const usage = require('command-line-usage');
 const ps = require('ps-node');
+const asar = require('asar');
 
 // help page
 const help = [
@@ -119,5 +120,8 @@ var _ = options._;
 if (command == null || command == 'help') {
     console.log(usage(help));
 } else if (command == 'inject') {
-    ps.lookup({command})
+    // find discord application path
+
+    asar.extractAll(/*archive path*/, /*temp path*/);
+
 }
