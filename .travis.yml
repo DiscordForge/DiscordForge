@@ -1,2 +1,8 @@
 language: node_js
-script: ./test
+install:
+  - mv src test
+  - cd test
+  - npm install -g npm
+  - npm install
+script:
+  - npm test
