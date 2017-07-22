@@ -1,5 +1,5 @@
 <p align="center">
-	<img alt="DiscordForge Banner" src="https://github.com/DiscordForge/DiscordForge/raw/master/discordforge.png"></img>
+	<a href="https://discordforge.me"><img alt="DiscordForge Banner" src="https://github.com/DiscordForge/DiscordForge/raw/master/discordforge.png"></img></a>
 	<br>
 	<br>
 	<a href="https://www.codacy.com/app/LewisTehMinerz/DiscordForge?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DiscordForge/DiscordForge&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/40a38e8e01834cd29e03bd89a30f6d2e"/></a>
