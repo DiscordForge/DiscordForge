@@ -16,29 +16,12 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var assert = require('assert');
-var fs = require('fs');
-describe('Files', () => {
-	it('should have bootstrap.js', () => {
-		if (fs.existsSync('bootstrap.js') === false)
-			throw new Error('File missing.');
+const {spawn} = require('child_process');
+console.log('installing...');
+let inst = spawn('npm', ['install', '--only=prod'], { shell: true });
+inst.on('close', () => {
+	let bind = spawn('npm', ['link'], { shell: true });
+	bind.on('close', () => {
+		console.log('installed discordforge.');
 	});
-	it('should have index.js', () => {
-		if (fs.existsSync('index.js') === false)
-			throw new Error('File missing.');
-	});
-	it('should have modloader.js', () => {
-		if (fs.existsSync('modloader.js') === false)
-			throw new Error('File missing.');
-	});
-	it('should have setup.js', () => {
-		if (fs.existsSync('setup.js') === false)
-			throw new Error('File missing.');
-	});
-	it('should have LICENSE', () => {
-		if (fs.existsSync('LICENSE') === false)
-			throw new Error('File missing.');
-	});
-});
-describe('', () => {
 });
