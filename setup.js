@@ -49,6 +49,7 @@ inst.on('close', () => {
 	bind.on('close', () => {
 		fs.mkdirSync(dforgeDir);
 		fs.mkdirSync(path.join(dforgeDir, 'plugins'));
+		fs.mkdirSync(path.join(dforgeDir, 'modloader'));
 		fs.writeFileSync(path.join(dforgeDir, 'modloader', 'modloader.js'), fs.readFileSync('modloader.js'));
 		console.log('Installed DiscordForge.');
 	});
