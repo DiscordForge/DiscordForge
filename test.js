@@ -18,7 +18,7 @@
 
 const assert = require('assert');
 const fs = require('fs');
-const {fork} = require('child_process');
+const {spawn} = require('child_process');
 const os = require('os');
 const path = require('path');
 const dforgeDir = path.join(os.homedir(), '.discordforge');
@@ -47,7 +47,7 @@ describe('Files', () => {
 });
 describe('Setup', () => {
 	it('should exit with code 0', () => {
-		let setup = fork('setup.js');
+		let setup = spawn('node', ['setup.js'], { shell: true });
 		setup.on('close', (code) => {
 			if (code !== 0)
 				throw new Error(`Setup exited with code ${code}`);

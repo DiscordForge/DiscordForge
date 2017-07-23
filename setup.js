@@ -36,21 +36,23 @@ const deleteFolderRecursive = (path) => {
   }
 };
 if (process.argv[2] === "-u") {
-	let uninst = spawn('npm', ['rm', '-g', 'discordforge']);
+	let uninst = spawn('npm', ['rm', '-g', 'discordforge'], { shell: true });
 	uninst.on('close', () => {
 		deleteFolderRecursive(dforgeDir);
 		console.log('Uninstalled DiscordForge.');
+		
+	});
+} else {
+	console.log('Installing...');
+	let inst = spawn('npm', ['install', '--only=prod'], { shell: true });
+	inst.on('close', () => {
+		let bind = spawn('npm', ['link'], { shell: true });
+		bind.on('close', () => {
+			fs.mkdirSync(dforgeDir);
+			fs.mkdirSync(path.join(dforgeDir, 'plugins'));
+			fs.mkdirSync(path.join(dforgeDir, 'modloader'));
+			fs.writeFileSync(path.join(dforgeDir, 'modloader', 'modloader.js'), fs.readFileSync('modloader.js'));
+			console.log('Installed DiscordForge.');
+		});
 	});
 }
-console.log('Installing...');
-let inst = spawn('npm', ['install', '--only=prod'], { shell: true });
-inst.on('close', () => {
-	let bind = spawn('npm', ['link'], { shell: true });
-	bind.on('close', () => {
-		fs.mkdirSync(dforgeDir);
-		fs.mkdirSync(path.join(dforgeDir, 'plugins'));
-		fs.mkdirSync(path.join(dforgeDir, 'modloader'));
-		fs.writeFileSync(path.join(dforgeDir, 'modloader', 'modloader.js'), fs.readFileSync('modloader.js'));
-		console.log('Installed DiscordForge.');
-	});
-});
