@@ -47,7 +47,7 @@ describe('Files', () => {
 });
 describe('Setup', () => {
 	it('should exit with code 0', () => {
-		let setup = fork('setup');
+		let setup = fork('setup.js');
 		setup.on('close', (code) => {
 			if (code !== 0)
 				throw new Error(`Setup exited with code ${code}`);
