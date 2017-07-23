@@ -122,6 +122,6 @@ if (command == null || command == 'help') {
 } else if (command == 'inject') {
     // find discord application path
 
-    asar.extractAll(/*archive path*/, /*temp path*/);
+    asar.extractAll(/*archive path*/ /*temp path*/);
 
 }

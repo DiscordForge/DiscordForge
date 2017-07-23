@@ -16,8 +16,13 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var assert = require('assert');
-var fs = require('fs');
+const assert = require('assert');
+const fs = require('fs');
+const {fork} = require('child_process');
+const os = require('os');
+const path = require('path');
+const dforgeDir = path.join(os.homedir(), '.discordforge');
+const checksum = require('checksum');
 describe('Files', () => {
 	it('should have bootstrap.js', () => {
 		if (fs.existsSync('bootstrap.js') === false)
@@ -40,5 +45,38 @@ describe('Files', () => {
 			throw new Error('File missing.');
 	});
 });
-describe('', () => {
+describe('Setup', () => {
+	it('should exit with code 0', () => {
+		let setup = fork('setup');
+		setup.on('close', (code) => {
+			if (code !== 0)
+				throw new Error(`Setup exited with code ${code}`);
+		});
+	});
+	it('should have made a directory in the home directory', () => {
+		if (fs.existsSync(dforgeDir) === false)
+			throw new Error('Directory missing.');
+	});
+	it('should have made a plugins directory', () => {
+		if (fs.existsSync(path.join(dforgeDir, 'plugins')) === false)
+			throw new Error('Directory missing.');
+	});
+	it('should have made a modloader directory', () => {
+		if (fs.existsSync(path.join(dforgeDir, 'modloader')) === false)
+			throw new Error('Directory missing.');
+	});
+	it('should have made a modloader.js', () => {
+		if (fs.existsSync(path.join(dforgeDir, 'modloader', 'modloader.js')) === false)
+			throw new Error('File missing.');
+	});
+	it('should have made an exact copy of the modloader', () => {
+		let sumCurrent, sumCopy;
+		checksum.file(path.join(dforgeDir, 'modloader', 'modloader.js'), (err, sum) => {
+			sumCopy = sum;
+		});
+		checksum.file('modloader.js', (err, sum) => {
+			sumCurrent = sum;
+		});
+		assert.equal(sumCurrent, sumCopy);
+	});
 });

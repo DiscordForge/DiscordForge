@@ -16,12 +16,40 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+process.title = 'DiscordForge Installer';
 const {spawn} = require('child_process');
-console.log('installing...');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const dforgeDir = path.join(os.homedir(), '.discordforge');
+const deleteFolderRecursive = (path) => {
+  if( fs.existsSync(path) ) {
+    fs.readdirSync(path).forEach(function(file,index){
+      var curPath = path + "/" + file;
+      if(fs.lstatSync(curPath).isDirectory()) {
+        deleteFolderRecursive(curPath);
+      } else {
+        fs.unlinkSync(curPath);
+      }
+    });
+    fs.rmdirSync(path);
+  }
+};
+if (process.argv[2] === "-u") {
+	let uninst = spawn('npm', ['rm', '-g', 'discordforge']);
+	uninst.on('close', () => {
+		deleteFolderRecursive(dforgeDir);
+		console.log('Uninstalled DiscordForge.');
+	});
+}
+console.log('Installing...');
 let inst = spawn('npm', ['install', '--only=prod'], { shell: true });
 inst.on('close', () => {
 	let bind = spawn('npm', ['link'], { shell: true });
 	bind.on('close', () => {
-		console.log('installed discordforge.');
+		fs.mkdirSync(dforgeDir);
+		fs.mkdirSync(path.join(dforgeDir, 'plugins'));
+		fs.writeFileSync(path.join(dforgeDir, 'modloader', 'modloader.js'), fs.readFileSync('modloader.js'));
+		console.log('Installed DiscordForge.');
 	});
 });

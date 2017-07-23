@@ -26,6 +26,7 @@
     "ps-node": "^0.1.6"
   },
   "devDependencies": {
+    "checksum": "^0.1.1",
     "mocha": "^3.4.2"
   }
 }
