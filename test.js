@@ -18,7 +18,7 @@
 
 const assert = require('assert');
 const fs = require('fs');
-const child = require('child_process');
+const {fork} = require('child_process');
 const os = require('os');
 const path = require('path');
 const dforgeDir = path.join(os.homedir(), '.discordforge');
@@ -49,7 +49,7 @@ describe('Setup', () => {
 	before(function(done) {
 		this.timeout(60000);
 		console.log('\nThis test requires the setup script to be executed first. We will now install DiscordForge as if the end user is installing it.\n');
-		let setup = child.fork('setup.js');
+		let setup = fork('setup.js');
 		setup.on('exit', (code) => {
 			if (code !== 0)
 				throw new Error(`Setup exited with code ${code}`);
