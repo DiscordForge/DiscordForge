@@ -48,7 +48,7 @@ describe('Files', () => {
 describe('Setup', () => {
 	before(function(done) {
 		this.timeout(60000);
-		console.log('\nThis test requires the setup script to be executed first. We will now install DiscordForge as if the end user is installing it.\n');
+		console.log('\nThis test requires the setup script to be executed first. We will now install DiscordForge as if the end user is installing it.\n[Timeout: 1 minute]\n');
 		let setup = fork('setup.js');
 		setup.on('exit', (code) => {
 			if (code !== 0)
