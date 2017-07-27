@@ -7,8 +7,13 @@
   <a href="https://www.codacy.com/app/LewisTehMinerz/DiscordForge?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DiscordForge/DiscordForge&amp;utm_campaign=Badge_Grade">
     <img src="https://api.codacy.com/project/badge/Grade/40a38e8e01834cd29e03bd89a30f6d2e"/>
   </a>
+  &nbsp;
   <a href="https://travis-ci.org/DiscordForge/DiscordForge">
     <img src="https://travis-ci.org/DiscordForge/DiscordForge.svg?branch=master"/>
+  </a>
+  &nbsp;
+  <a href="https://discord.gg/wNTrUhn">
+    <img src="https://discordapp.com/api/guilds/340178908743729162/widget.png"/>
   </a>
 </p>
 
