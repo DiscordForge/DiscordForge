@@ -47,21 +47,27 @@ describe('Files', () => {
 });
 describe('Setup', () => {
 	let sumCurrent, sumCopy;
-	before(function(done) {
+	before(function(done) { // needs to be function() to use this.timeout
 		this.timeout(60000);
-		console.log('\nThis test requires the setup script to be executed first, and file hashes to be computed. We will now install DiscordForge as if the end user is installing it.\n[Timeout: 1 minute]\n');
-		let setup = fork('setup.js');
+		console.log('\n    This test requires the setup script to be executed first, and file hashes to be computed. We will now install DiscordForge as if the end user is installing it.');
+		console.log('\n    [Timeout Interval: 1 minute]');
+		console.log('\n');
+		let setup = fork('setup.js', [], { silent: true });
+		setup.stdout.on('data', (data) => {
+			console.log('    ' + data.toString());
+		});
 		setup.on('exit', (code) => {
 			if (code !== 0)
 				throw new Error(`Setup exited with code ${code}`);
-			console.log('\nDone installing. Now creating hashes.\n');
+			console.log('\n    Done installing. Now creating hashes.');
 			checksum.file(path.join(dforgeDir, 'modloader', 'modloader.js'), (err, sum) => {
 				sumCopy = sum;
 			});
 			checksum.file('modloader.js', (err, sum) => {
 				sumCurrent = sum;
 			});
-			console.log('Created hashes. Testing may now continue.\n');
+			console.log('\n    Created hashes. Testing may now continue.');
+			console.log('\n');
 			done();
 		});
 	});
