@@ -54,7 +54,7 @@ describe('Setup', () => {
 		console.log('\n');
 		let setup = fork('setup.js', [], { silent: true });
 		setup.stdout.on('data', (data) => {
-			console.log('    ' + data.toString());
+			process.stdout.write('    ' + data.toString());
 		});
 		setup.on('exit', (code) => {
 			if (code !== 0)

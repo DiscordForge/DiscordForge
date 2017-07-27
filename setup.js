@@ -38,23 +38,22 @@ const deleteFolderRecursive = (path) => {
 if (process.argv[2] === "-u") {
 	let uninst = spawn('npm', ['rm', '-g', 'discordforge'], { shell: true });
 	uninst.stdout.on('data', (data) => {
-		console.log(data.toString());
+		process.stdout.write(data.toString());
 	});
 	uninst.on('exit', () => {
 		deleteFolderRecursive(dforgeDir);
 		console.log('Uninstalled DiscordForge.');
-		
 	});
 } else {
 	console.log('Installing...');
 	let inst = spawn('npm', ['install', '--only=prod'], { shell: true });
 	inst.stdout.on('data', (data) => {
-		console.log(data.toString());
+		process.stdout.write(data.toString());
 	});
 	inst.on('exit', () => {
 		let bind = spawn('npm', ['link'], { shell: true });
 		bind.stdout.on('data', (data) => {
-			console.log(data.toString());
+			process.stdout.write(data.toString());
 		});
 		bind.on('exit', () => {
 			fs.mkdirSync(dforgeDir);
