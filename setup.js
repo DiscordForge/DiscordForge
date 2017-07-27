@@ -37,7 +37,10 @@ const deleteFolderRecursive = (path) => {
 };
 if (process.argv[2] === "-u") {
 	let uninst = spawn('npm', ['rm', '-g', 'discordforge'], { shell: true });
-	uninst.on('close', () => {
+	uninst.stdout.on('data', (data) => {
+		console.log(data.toString());
+	});
+	uninst.on('exit', () => {
 		deleteFolderRecursive(dforgeDir);
 		console.log('Uninstalled DiscordForge.');
 		
@@ -45,9 +48,15 @@ if (process.argv[2] === "-u") {
 } else {
 	console.log('Installing...');
 	let inst = spawn('npm', ['install', '--only=prod'], { shell: true });
-	inst.on('close', () => {
+	inst.stdout.on('data', (data) => {
+		console.log(data.toString());
+	});
+	inst.on('exit', () => {
 		let bind = spawn('npm', ['link'], { shell: true });
-		bind.on('close', () => {
+		bind.stdout.on('data', (data) => {
+			console.log(data.toString());
+		});
+		bind.on('exit', () => {
 			fs.mkdirSync(dforgeDir);
 			fs.mkdirSync(path.join(dforgeDir, 'plugins'));
 			fs.mkdirSync(path.join(dforgeDir, 'modloader'));
