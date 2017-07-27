@@ -113,7 +113,7 @@ const help = [
             }
         ]
     }
-]
+];
 var _ = options._;
 
 // no args specified or command "help"
