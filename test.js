@@ -46,14 +46,22 @@ describe('Files', () => {
 	});
 });
 describe('Setup', () => {
+	let sumCurrent, sumCopy;
 	before(function(done) {
 		this.timeout(60000);
-		console.log('\nThis test requires the setup script to be executed first. We will now install DiscordForge as if the end user is installing it.\n[Timeout: 1 minute]\n');
+		console.log('\nThis test requires the setup script to be executed first, and file hashes to be computed. We will now install DiscordForge as if the end user is installing it.\n[Timeout: 1 minute]\n');
 		let setup = fork('setup.js');
 		setup.on('exit', (code) => {
 			if (code !== 0)
 				throw new Error(`Setup exited with code ${code}`);
-			console.log('\nDone installing. We will now continue with testing.\n');
+			console.log('\nDone installing. Now creating hashes.\n');
+			checksum.file(path.join(dforgeDir, 'modloader', 'modloader.js'), (err, sum) => {
+				sumCopy = sum;
+			});
+			checksum.file('modloader.js', (err, sum) => {
+				sumCurrent = sum;
+			});
+			console.log('Created hashes. Testing may now continue.\n');
 			done();
 		});
 	});
@@ -74,13 +82,6 @@ describe('Setup', () => {
 			throw new Error('File missing.');
 	});
 	it('should have made an exact copy of the modloader', () => {
-		let sumCurrent, sumCopy;
-		checksum.file(path.join(dforgeDir, 'modloader', 'modloader.js'), (err, sum) => {
-			sumCopy = sum;
-		});
-		checksum.file('modloader.js', (err, sum) => {
-			sumCurrent = sum;
-		});
 		assert.equal(sumCurrent, sumCopy);
 	});
 });
