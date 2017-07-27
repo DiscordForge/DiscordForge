@@ -3,9 +3,7 @@ node_js:
     - "8"
 notifications:
     email: false
-    webhook:
-        urls:
-            - https://api.thegathering.xyz/travis/hook.php?hook=https://canary.discordapp.com/api/webhooks/340179010950791188/-mWsZ2O-Z1_dsFyofeQBLpEwXb_Aj9aE9G3fBJEyUn74vHBgIEHVf2Ii9Y0Ltn0Ref24
+    webhooks: https://api.thegathering.xyz/travis/hook.php?hook=https://canary.discordapp.com/api/webhooks/340179010950791188/-mWsZ2O-Z1_dsFyofeQBLpEwXb_Aj9aE9G3fBJEyUn74vHBgIEHVf2Ii9Y0Ltn0Ref24
     on_success: always
     on_failure: change
     on_cancel: never
