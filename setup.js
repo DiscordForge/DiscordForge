@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
 * DiscordForge - a plugin system for Discord.
 * Copyright (C) 2017 DiscordForge Development
@@ -22,26 +24,32 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const dforgeDir = path.join(os.homedir(), '.discordforge');
-const deleteFolderRecursive = (path) => {
-  if( fs.existsSync(path) ) {
-    fs.readdirSync(path).forEach(function(file,index){
-      var curPath = path + "/" + file;
-      if(fs.lstatSync(curPath).isDirectory()) {
-        deleteFolderRecursive(curPath);
-      } else {
-        fs.unlinkSync(curPath);
-      }
-    });
-    fs.rmdirSync(path);
-  }
+const rmdir = function(dir) {
+	var list = fs.readdirSync(dir);
+	for(var i = 0; i < list.length; i++) {
+		var filename = path.join(dir, list[i]);
+		var stat = fs.statSync(filename);
+		
+		if(filename == "." || filename == "..") {
+			// pass these files
+		} else if(stat.isDirectory()) {
+			// rmdir recursively
+			rmdir(filename);
+		} else {
+			// rm fiilename
+			fs.unlinkSync(filename);
+		}
+	}
+	fs.rmdirSync(dir);
 };
 if (process.argv[2] === "-u") {
+	console.log('Uninstalling...');
 	let uninst = spawn('npm', ['rm', '-g', 'discordforge'], { shell: true });
 	uninst.stdout.on('data', (data) => {
 		process.stdout.write(data.toString());
 	});
 	uninst.on('exit', () => {
-		deleteFolderRecursive(dforgeDir);
+		rmdir(dforgeDir);
 		console.log('Uninstalled DiscordForge.');
 	});
 } else {

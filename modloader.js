@@ -16,4 +16,23 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// this file is here to prevent mocha from moaning at us, it will be filled in later.
+// deps
+const fs = require('fs');
+const path = require('path');
+
+const pluginsDir = path.join((process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME, '.discordforge/plugins');
+
+function log(str) {
+    console.log('%c[DiscordForge] ' + '%c' + str, 'color:#4286f4', 'color:auto');
+}
+
+// notify (in devtools) that we've loaded in
+log('Loaded in!');
+// and now to load plugins
+log('Loading plugins...');
+fs.readdirSync(pluginsDir).forEach(file => {
+    if (file.endsWith('.plugin.js')) {
+        log('Load: ' + file);
+        eval(fs.readFileSync(path.join(pluginsDir, file), 'utf-8'));
+    }
+});

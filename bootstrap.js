@@ -16,7 +16,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//deps
+// deps
 const fs = require('fs');
 const path = require('path');
 
@@ -28,7 +28,7 @@ fs.readFile(path.join((process.platform === 'win32') ? process.env.HOMEPATH : pr
         console.error(err);
     } else {
         //otherwise, execute the modloader
-        console.error('%c[DiscordForge Bootstrap] ' + '%cExecuting DiscordForge...', 'color:#4286f4', 'color:auto');
+        console.log('%c[DiscordForge Bootstrap] ' + '%cExecuting DiscordForge...', 'color:#4286f4', 'color:auto');
         eval(data);
     }
 });
