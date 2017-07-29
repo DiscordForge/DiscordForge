@@ -11,10 +11,6 @@
   <a href="https://travis-ci.org/DiscordForge/DiscordForge">
     <img src="https://travis-ci.org/DiscordForge/DiscordForge.svg?branch=master"/>
   </a>
-  &nbsp;
-  <a href="https://discord.gg/wNTrUhn">
-    <img src="https://discordapp.com/api/guilds/340178908743729162/widget.png"/>
-  </a>
 </p>
 
 # What is it?
