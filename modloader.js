@@ -35,10 +35,10 @@ fs.readdirSync(pluginsDir).forEach(file => {
     if (file.endsWith('.plugin.js')) {
         log('Load: ' + file);
         try {
-			let p = require(path.join(pluginsDir, file));
-			p.init();
-		} catch (e) {
-			log(file + ' is not a valid plugin. Skipping.');
-		}
+            let p = require(path.join(pluginsDir, file));
+            p.init();
+        } catch (e) {
+            log(file + ' is not a valid plugin. Skipping.');
+        }
     }
 });
