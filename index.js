@@ -201,7 +201,7 @@ if (command == null || command == 'help') {
 				discordPids = proc.pid;
             } else {
                 let k = Object.keys(procs);
-                for (let i = 0; i < keys.length; i++) {
+                for (let i = 0; i < k.length; i++) {
                     console.log(`${i}: ${k[i]} [${procs[k[i]].pid.join(', ')}]`);
                 }
                 console.log('Please select your process from above.');
@@ -226,9 +226,7 @@ if (command == null || command == 'help') {
 		console.log(`Process found. Using path '${discordPath}'`);
 		spinner.start('Extracting...');
 		fs.mkdirSync(temp);
-		let t = setInterval(() => spinner.render(), 80);
 		asar.extractAll(path.join(discordPath, 'resources', 'app.asar'), temp);
-		clearInterval(t);
 		if (fs.existsSync(path.join(temp, 'index.js.bak')) != false) {
 			spinner.fail('DiscordForge is already injected.');
 			rmdir(temp, () => {});
