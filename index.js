@@ -18,6 +18,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// add a title to make it look nice in cmd (win) and any other process manager (mac/linux)
+process.title = "DiscordForge";
+
 // parse commands
 var command, argv = null;
 try {
@@ -28,9 +31,61 @@ try {
 }
 // require deps
 const options = require('minimist')(argv);
+const readline = require('readline');
 const usage = require('command-line-usage');
 const ps = require('ps-node');
 const asar = require('asar');
+const path = require('path');
+const fs = require('fs');
+const os = require('os');
+const {spawn} = require('child_process');
+const ora = require('ora');
+
+// constant variables
+const dforgeDir = path.join(os.homedir(), '.discordforge');
+const temp = path.join(dforgeDir, '_temp');
+const toSplice1 = 'splashWindow.pageReady();';
+const splice1 = 'splashWindow.pageReady(); /** DiscordForge Splice **/ df.init();';
+const toSplice2 = '\'use strict\';';
+const splice2 = '\'use strict\';\n /** DiscordForge Splice **/ const df = require(\'./discordforge\');';
+const gSpin = ora({
+	color: 'cyan',
+	stream: process.stdout,
+	spinner: {
+		"interval": 80,
+		"frames": [
+			"[    ]",
+			"[   =]",
+			"[  ==]",
+			"[ ===]",
+			"[====]",
+			"[=== ]",
+			"[==  ]",
+			"[=   ]"
+		]
+	}
+});
+
+// recursive deletion for directory.
+const rmdir = function(dir, cb) {
+	var list = fs.readdirSync(dir);
+	for(var i = 0; i < list.length; i++) {
+		var filename = path.join(dir, list[i]);
+		var stat = fs.statSync(filename);
+		
+		if(filename == "." || filename == "..") {
+			// pass these files
+		} else if(stat.isDirectory()) {
+			// rmdir recursively
+			rmdir(filename, () => {});
+		} else {
+			// rm fiilename
+			fs.unlinkSync(filename);
+		}
+	}
+	fs.rmdirSync(dir);
+	cb();
+};
 
 // help page
 const help = [
@@ -121,7 +176,169 @@ if (command == null || command == 'help') {
     console.log(usage(help));
 } else if (command == 'inject') {
     // find discord application path
+    var discordPath = null;
+	var discordBin = null;
+	var discordPids;
+    ps.lookup({}, (err, res) => {
+        if (err) throw err;
+        else {
+            var raw = res.filter(proc => proc.command.includes('Discord'));
+            var procs = {};
+            raw.forEach(proc => {
+                if (!procs[proc.command])
+                    procs[proc.command] = {command: proc.command, pid: []};
 
-    asar.extractAll(/*archive path*/ /*temp path*/);
+                procs[proc.command].pid.push(proc.pid);
+            });
 
+            if (Object.keys(procs).length == 0) {
+                console.log('No processes were found.');
+                return;
+            } else if (Object.keys(procs).length == 1) {
+				let proc = procs[Object.keys(procs)[0]];
+                discordPath = proc.command.substr(0, proc.command.lastIndexOf('\\'));
+				discordBin = proc.command;
+				discordPids = proc.pid;
+            } else {
+                let k = Object.keys(procs);
+                for (let i = 0; i < keys.length; i++) {
+                    console.log(`${i}: ${k[i]} [${procs[k[i]].pid.join(', ')}]`);
+                }
+                console.log('Please select your process from above.');
+				var rl = readline.createInterface({
+					input: process.stdin,
+					output: process.stdout
+				});
+				rl.question('> ', answer => {
+					if (typeof parseInt(answer) === 'number') {
+						let proc = procs[Object.keys(procs)[answer]];
+						discordPath = proc.command.substr(0, proc.command.lastIndexOf('\\'));
+						discordBin = proc.command;
+						discordPids = proc.pid;
+					} else {
+						console.log('You didn\'t input a number. Re-run the command and try again.');
+					}
+					rl.close();
+				});
+            }
+        }
+		var spinner = gSpin;
+		console.log(`Process found. Using path '${discordPath}'`);
+		spinner.start('Extracting...');
+		fs.mkdirSync(temp);
+		let t = setInterval(() => spinner.render(), 80);
+		asar.extractAll(path.join(discordPath, 'resources', 'app.asar'), temp);
+		clearInterval(t);
+		if (fs.existsSync(path.join(temp, 'index.js.bak')) != false) {
+			spinner.fail('DiscordForge is already injected.');
+			rmdir(temp, () => {});
+		} else {
+			spinner.text = "Splicing...";
+			fs.readFile(path.join(temp, 'index.js'), 'utf8', (e, d) => {
+				if (e) throw e;
+				var d1 = d.replace(toSplice1, splice1);
+				var injected = d1.replace(toSplice2, splice2);
+				fs.writeFileSync(path.join(temp, 'index.js.bak'), fs.readFileSync(path.join(temp, 'index.js')));
+				fs.writeFile(path.join(temp, 'index.js'), injected, (e1) => {
+					if (e1) throw e1;
+					fs.writeFileSync(path.join(temp, 'discordforge.js'), fs.readFileSync(path.join(__dirname, 'bootstrap.js')));
+					spinner.text = 'Archiving...';
+					discordPids.forEach(o => {
+						process.kill(o);
+					});
+					asar.createPackage(temp, path.join(discordPath, 'resources', 'app.asar'), () => {
+						spinner.text = 'Cleaning up...';
+						rmdir(temp, () => {
+							spinner.text = 'Starting Discord...';
+							spawn(discordBin, {
+								detached: true
+							}).unref();
+							spinner.succeed('Injected.');
+							process.exit(0);
+						});
+					});
+				});
+			});
+		}
+    });
+} else if (command == 'uninject') {
+    // find discord application path
+    var discordPath = null;
+	var discordBin = null;
+	var discordPids;
+    ps.lookup({}, (err, res) => {
+        if (err) throw err;
+        else {
+            var raw = res.filter(proc => proc.command.includes('Discord'));
+            var procs = {};
+            raw.forEach(proc => {
+                if (!procs[proc.command])
+                    procs[proc.command] = {command: proc.command, pid: []};
+
+                procs[proc.command].pid.push(proc.pid);
+            });
+
+            if (Object.keys(procs).length == 0) {
+                console.log('No processes were found.');
+                return;
+            } else if (Object.keys(procs).length == 1) {
+				let proc = procs[Object.keys(procs)[0]];
+                discordPath = proc.command.substr(0, proc.command.lastIndexOf('\\'));
+				discordBin = proc.command;
+				discordPids = proc.pid;
+            } else {
+                let k = Object.keys(procs);
+                for (let i = 0; i < keys.length; i++) {
+                    console.log(`${i}: ${k[i]} [${procs[k[i]].pid.join(', ')}]`);
+                }
+                console.log('Please select your process from above.');
+				var rl = readline.createInterface({
+					input: process.stdin,
+					output: process.stdout
+				});
+				rl.question('> ', answer => {
+					if (typeof parseInt(answer) === 'number') {
+						let proc = procs[Object.keys(procs)[answer]];
+						discordPath = proc.command.substr(0, proc.command.lastIndexOf('\\'));
+						discordBin = proc.command;
+						discordPids = proc.pid;
+					} else {
+						console.log('You didn\'t input a number. Re-run the command and try again.');
+					}
+					rl.close();
+				});
+            }
+        }
+		var spinner = gSpin;
+		console.log(`Process found. Using path '${discordPath}'`);
+		spinner.start('Extracting...');
+		fs.mkdirSync(temp);
+		asar.extractAll(path.join(discordPath, 'resources', 'app.asar'), temp);
+		if (fs.existsSync(path.join(temp, 'index.js.bak')) == false) {
+			spinner.fail('Not injected or corrupt. If you injected DiscordForge and you are getting this message, reinstall Discord.');
+			rmdir(temp, () => {});
+		} else {
+			spinner.text = 'Removing modification...';
+			fs.writeFile(path.join(temp, 'index.js'), fs.readFileSync(path.join(temp, 'index.js.bak')), (e) => {
+				if (e) throw e;
+				fs.unlinkSync(path.join(temp, 'index.js.bak'));
+				fs.unlinkSync(path.join(temp, 'discordforge.js'));
+				spinner.text = 'Archiving...';
+				discordPids.forEach(o => {
+					process.kill(o);
+				});
+				asar.createPackage(temp, path.join(discordPath, 'resources', 'app.asar'), () => {
+					spinner.text = 'Cleaning up...';
+					rmdir(temp, () => {
+						spinner.text = 'Starting Discord...';
+						spawn(discordBin, {
+							detached: true
+						}).unref();
+						spinner.succeed('Uninjected.');
+						process.exit(0);
+					});
+				});
+			});
+		}
+	});
 }

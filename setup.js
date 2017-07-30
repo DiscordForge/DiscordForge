@@ -64,10 +64,17 @@ if (process.argv[2] === "-u") {
 			process.stdout.write(data.toString());
 		});
 		bind.on('exit', () => {
-			fs.mkdirSync(dforgeDir);
-			fs.mkdirSync(path.join(dforgeDir, 'plugins'));
-			fs.mkdirSync(path.join(dforgeDir, 'modloader'));
-			fs.writeFileSync(path.join(dforgeDir, 'modloader', 'modloader.js'), fs.readFileSync('modloader.js'));
+			if (fs.existsSync(dforgeDir)) rmdir(dforgeDir);
+			fs.mkdir(dforgeDir, e => {
+				if (e) throw e;
+				fs.mkdir(path.join(dforgeDir, 'plugins'), e1 => {
+					if (e1) throw e1;
+					fs.mkdir(path.join(dforgeDir, 'modloader'), e2 => {
+						if (e2) throw e2;
+						fs.writeFileSync(path.join(dforgeDir, 'modloader', 'modloader.js'), fs.readFileSync('modloader.js'));
+					});
+				});
+			});
 			console.log('Installed DiscordForge.');
 		});
 	});

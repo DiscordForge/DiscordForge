@@ -19,16 +19,28 @@
 // deps
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
-// load the discordforge binary
-fs.readFile(path.join((process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME, '.discordforge/modloader/modloader.js'), 'utf-8', (err, data) => {
-    // if there was an error, just print and don't crash the client.
-    if (err) {
-        console.error('%c[DiscordForge Bootstrap] ' + '%cWill not load due to a bootstrapping error. The stacktrace is shown below.', 'color:#4286f4', 'color:auto');
-        console.error(err);
-    } else {
-        //otherwise, execute the modloader
-        console.log('%c[DiscordForge Bootstrap] ' + '%cExecuting DiscordForge...', 'color:#4286f4', 'color:auto');
-        eval(data);
-    }
-});
+global.df = {};
+
+function _init() {
+	global.df.isLoaded = false;
+
+	// load the discordforge binary
+	fs.readFile(path.join(os.homedir(), '.discordforge/modloader/modloader.js'), 'utf-8', (err, data) => {
+		// if there was an error, just print and don't crash the client.
+		if (err) {
+			console.error('%c[DiscordForge Bootstrap] ' + '%cWill not load due to a bootstrapping error. The stacktrace is shown below.', 'color:#4286f4', 'color:auto');
+			console.error(err);
+		} else {
+			//otherwise, execute the modloader
+			console.log('%c[DiscordForge Bootstrap] ' + '%cExecuting DiscordForge...', 'color:#4286f4', 'color:auto');
+			eval(data);
+			global.df.isLoaded = true;
+		}
+	});
+}
+
+module.exports = {
+	init: _init
+};

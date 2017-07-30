@@ -19,10 +19,11 @@
 // deps
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
-const pluginsDir = path.join((process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME, '.discordforge/plugins');
+const pluginsDir = path.join(os.homedir(), '.discordforge/plugins');
 
-function log(str) {
+const log = function(str) {
     console.log('%c[DiscordForge] ' + '%c' + str, 'color:#4286f4', 'color:auto');
 }
 
@@ -33,6 +34,11 @@ log('Loading plugins...');
 fs.readdirSync(pluginsDir).forEach(file => {
     if (file.endsWith('.plugin.js')) {
         log('Load: ' + file);
-        eval(fs.readFileSync(path.join(pluginsDir, file), 'utf-8'));
+        try {
+			let p = require(path.join(pluginsDir, file));
+			p.init();
+		} catch (e) {
+			log(file + ' is not a valid plugin. Skipping.');
+		}
     }
 });
