@@ -39,6 +39,7 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const {spawn} = require('child_process');
+const https = require('https');
 const ora = require('ora');
 
 // constant variables
@@ -46,6 +47,7 @@ const dforgeDir = path.join(os.homedir(), '.discordforge');
 const temp = path.join(dforgeDir, '_temp');
 const toSplice1 = 'mainWindow.webContents.on(\'dom-ready\', function () {});';
 const splice1 = 'mainWindow.webContents.on(\'dom-ready\', function () {mainWindow.webContents.executeJavaScript(\'require(require(\\\'path\\\').join(\\\'../../app.asar\\\', \\\'discordforge\\\'))();\');});'; 
+const configPath = path.join(__dirname, 'config.json');
 const gSpin = ora({
 	color: 'cyan',
 	stream: process.stdout,
@@ -167,7 +169,22 @@ const help = [
         ]
     }
 ];
+var defaultConfig = {
+		repositories: [
+			"DiscordForge/Plugins"
+		]
+};
+var config = {};
 var _ = options._;
+
+// config
+if (!fs.existsSync(configPath)) {
+	fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2), 'utf8');
+	config = defaultConfig;
+} else {
+	config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+}
+
 
 // no args specified or command "help"
 if (command == null || command == 'help') {
@@ -344,4 +361,74 @@ if (command == null || command == 'help') {
 			});
 		}
 	});
+} else if (command == 'repo') {
+	let subcommand = _[0];
+	let repoName = _[1];
+	if (subcommand == 'list') {
+		console.log('Repositories:');
+		config.repositories.forEach(r => {
+			console.log(r);
+		});
+	} else if (subcommand == 'add') {
+		if (repoName != null) {
+			let found = false;
+			config.repositories.forEach(r => {
+				if (repoName.toLowerCase() == r.toLowerCase()) {
+					console.log('This repository has already been added.');
+					found = true;
+					return;
+				}
+			});
+			if (!found) {
+				https.get(`https://raw.githubusercontent.com/${repoName}/master/repository.json`, res => {
+					let status = res.statusCode;
+					if (status == 404) {
+						console.log('Repository either does not exist or doesn\'t have a `repository.json` on the master branch.');
+						return;
+					} else {
+						var repoJson = '';
+						res.setEncoding('utf8');
+						res.on('data', d => {
+							repoJson = JSON.parse(d);
+						});
+						res.on('end', () => {
+							if (repoJson.description == undefined || repoJson.plugins == undefined) {
+								console.log('Invalid repository metadata.');
+								return;
+							}
+							console.log(`Adding repository '${repoName}'`);
+							console.log(`Description: ${repoJson.description}`);
+							config.repositories.push(repoName);
+							console.log('Added.');
+							fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf8');
+						});
+					}
+				});
+			}
+		} else {
+			console.log('No repository passed.');
+		}
+	} else if (subcommand == 'remove') {
+		if (repoName != null) {
+			let found = false;
+			config.repositories.forEach(r => {
+				if (repoName.toLowerCase() == r.toLowerCase()) {
+					found = true;
+					return;
+				}
+			});
+			if (found) {
+				console.log(`Removing repository '${repoName}'`);
+				config.repositories.splice(config.repositories.indexOf(repoName), 1);
+				console.log('Removed.');
+				fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf8');
+			} else {
+				console.log('Repository was not added.');
+			}
+		} else {
+			console.log('No repository passed.');
+		}
+	} else {
+		console.log('error: no subcommand - try \'discordforge help\'');
+	}
 }

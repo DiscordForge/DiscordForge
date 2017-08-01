@@ -23,9 +23,11 @@ const os = require('os');
 
 const pluginsDir = path.join(os.homedir(), '.discordforge/plugins');
 
+global.df.plugins = [];
+
 const log = function(str) {
     console.log('%c[DiscordForge] ' + '%c' + str, 'color:#4286f4', 'color:auto');
-};
+}
 
 // notify (in devtools) that we've loaded in
 log('Loaded in!');
@@ -35,10 +37,11 @@ fs.readdirSync(pluginsDir).forEach(file => {
     if (file.endsWith('.plugin.js')) {
         log('Load: ' + file);
         try {
-            let p = require(path.join(pluginsDir, file));
-            p.init();
-        } catch (e) {
-            log(file + ' is not a valid plugin. Skipping.');
-        }
+			let p = require(path.join(pluginsDir, file));
+			p.init();
+			global.df.plugins.push(file);
+		} catch (e) {
+			log(file + ' is not a valid plugin. Skipping.');
+		}
     }
 });

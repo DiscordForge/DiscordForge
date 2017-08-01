@@ -26,6 +26,7 @@ Here are the steps to install DiscordForge:
 * Get [git](https://git-scm.com/)
 * Get [node](https://nodejs.org/)
 * Clone the repository by running `git clone https://github.com/DiscordForge/DiscordForge`
+* Go into the `src` directory
 * Run `node setup`
 
 If you want to inject DiscordForge into your client from the get-go, run `discordforge inject`.
