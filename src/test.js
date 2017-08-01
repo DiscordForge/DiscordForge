@@ -41,7 +41,7 @@ describe('Files', () => {
 			throw new Error('File missing.');
 	});
 	it('should have LICENSE', () => {
-		if (fs.existsSync('LICENSE') === false)
+		if (fs.existsSync(path.join('..', 'LICENSE')) === false) // check for license in root directory, not src.
 			throw new Error('File missing.');
 	});
 });
