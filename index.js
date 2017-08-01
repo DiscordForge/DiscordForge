@@ -44,10 +44,8 @@ const ora = require('ora');
 // constant variables
 const dforgeDir = path.join(os.homedir(), '.discordforge');
 const temp = path.join(dforgeDir, '_temp');
-const toSplice1 = 'splashWindow.pageReady();';
-const splice1 = 'splashWindow.pageReady(); /** DiscordForge Splice **/ df.init();';
-const toSplice2 = '\'use strict\';';
-const splice2 = '\'use strict\';\n /** DiscordForge Splice **/ const df = require(\'./discordforge\');';
+const toSplice1 = 'mainWindow.webContents.on(\'dom-ready\', function () {});';
+const splice1 = 'mainWindow.webContents.on(\'dom-ready\', function () {mainWindow.webContents.executeJavaScript(\'require(require(\\\'path\\\').join(\\\'../../app.asar\\\', \\\'discordforge\\\'))();\');});'; 
 const gSpin = ora({
 	color: 'cyan',
 	stream: process.stdout,
@@ -234,15 +232,18 @@ if (command == null || command == 'help') {
 			spinner.text = "Splicing...";
 			fs.readFile(path.join(temp, 'index.js'), 'utf8', (e, d) => {
 				if (e) throw e;
-				var d1 = d.replace(toSplice1, splice1);
-				var injected = d1.replace(toSplice2, splice2);
+				var inject = d.replace(toSplice1, splice1);
 				fs.writeFileSync(path.join(temp, 'index.js.bak'), fs.readFileSync(path.join(temp, 'index.js')));
-				fs.writeFile(path.join(temp, 'index.js'), injected, (e1) => {
+				fs.writeFile(path.join(temp, 'index.js'), inject, (e1) => {
 					if (e1) throw e1;
 					fs.writeFileSync(path.join(temp, 'discordforge.js'), fs.readFileSync(path.join(__dirname, 'bootstrap.js')));
 					spinner.text = 'Archiving...';
 					discordPids.forEach(o => {
-						process.kill(o);
+						try {
+							process.kill(o);
+						} catch (e) {
+								// ESRCH => killed the main process first, meaning the other processes died. doesn't matter.
+						}
 					});
 					asar.createPackage(temp, path.join(discordPath, 'resources', 'app.asar'), () => {
 						spinner.text = 'Cleaning up...';
@@ -323,7 +324,11 @@ if (command == null || command == 'help') {
 				fs.unlinkSync(path.join(temp, 'discordforge.js'));
 				spinner.text = 'Archiving...';
 				discordPids.forEach(o => {
-					process.kill(o);
+					try {
+						process.kill(o);
+					} catch (e) {
+							// ESRCH => killed the main process first, meaning the other processes died. doesn't matter.
+					}
 				});
 				asar.createPackage(temp, path.join(discordPath, 'resources', 'app.asar'), () => {
 					spinner.text = 'Cleaning up...';

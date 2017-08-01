@@ -23,7 +23,7 @@ const os = require('os');
 
 global.df = {};
 
-function _init() {
+function strap() {
 	global.df.isLoaded = false;
 
 	// load the discordforge binary
@@ -41,6 +41,4 @@ function _init() {
 	});
 }
 
-module.exports = {
-	init: _init
-};
+module.exports = strap;
