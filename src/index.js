@@ -305,7 +305,7 @@ if (command == null || command == 'help') {
 				discordPids = proc.pid;
             } else {
                 let k = Object.keys(procs);
-                for (let i = 0; i < keys.length; i++) {
+                for (let i = 0; i < k.length; i++) {
                     console.log(`${i}: ${k[i]} [${procs[k[i]].pid.join(', ')}]`);
                 }
                 console.log('Please select your process from above.');

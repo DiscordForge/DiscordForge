@@ -27,7 +27,7 @@ global.df.plugins = [];
 
 const log = function(str) {
     console.log('%c[DiscordForge] ' + '%c' + str, 'color:#4286f4', 'color:auto');
-}
+};
 
 // notify (in devtools) that we've loaded in
 log('Loaded in!');
