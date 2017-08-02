@@ -1,18 +1,23 @@
 environment:
   nodejs_version: "8"
+  
 install:
   - ps: Install-Product node $env:nodejs_version
   - cd src
   - npm install
+  
 test_script:
   - node --version
   - npm --version
   - npm test
+  
 version: 1.0.{build}
+
 pull_requests:
   do_not_increment_build_number: true
-build:
-  verbosity: minimal
+  
+build: off
+
 notifications:
 - provider: Webhook
   url:
