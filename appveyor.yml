@@ -1,0 +1,23 @@
+environment:
+  nodejs_version: "8"
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - cd src
+  - npm install
+test_script:
+  - node --version
+  - npm --version
+  - npm test
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+build:
+  verbosity: minimal
+notifications:
+- provider: Webhook
+  url:
+    secure: 5dZ6DHG6p30QXqMUMnxLtWaBuYy8wYWEjxANlNKqDm74qETwr0HHY3tDp4PZnDGCEx6ebU2ZUDwLSugpzW/e3NEQhPrRyfkbVr4C35+W1peuRnEhotVpXkTYHtj989x+76MDRb1uj7FttQHjOYjuaDNBdtq6pZKJehLDD2rk4IAhi6Fiu75ZqwUNN0k/bQyt
+  method: POST
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true
