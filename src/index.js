@@ -18,8 +18,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// add a title to make it look nice in cmd (win) and any other process manager (mac/linux)
-process.title = "DiscordForge";
+// DiscordForge details
+const VERSION = '1.0';
+process.title = `DiscordForge ${VERSION}`;
 
 // parse commands
 var command, argv = null;
@@ -90,7 +91,7 @@ const rmdir = function(dir, cb) {
 // help page
 const help = [
     {
-        header: 'DiscordForge',
+        header: `DiscordForge ${VERSION}`,
         content: 'A toolkit that allows you to create and install your own plugins into the Discord client.'
     },
     {
@@ -431,4 +432,13 @@ if (command == null || command == 'help') {
 	} else {
 		console.log('error: no subcommand - try \'discordforge help\'');
 	}
+} else if (command == 'plugin') {
+	let subcommand = _[0];
+	let plugin = _[1];
+	/**if (subcommand == 'install') {
+		
+	} else {
+		console.log('error: no subcommand - try \'discordforge help\'');
+	}*/
+	console.log('Plugin command has not yet been implemented, as there are no plugins to test with. In DiscordForge 1.0.1, this will mean something.\n\nDevelopers: Prepare your plugin for the 1.0.1 update as well. As well as creating an `init` function, create an `uninit` funtion.');
 }
