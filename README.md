@@ -1,15 +1,23 @@
 <p align="center">
   <a href="https://discordforge.me">
-    <img alt="DiscordForge Banner" src="https://github.com/DiscordForge/DiscordForge/raw/master/discordforge.png"/>
+    <img src="https://github.com/DiscordForge/DiscordForge/raw/master/discordforge.png"/>
   </a>
 </p>
 <p align="center">
   <a href="https://www.codacy.com/app/LewisTehMinerz/DiscordForge?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DiscordForge/DiscordForge&amp;utm_campaign=Badge_Grade">
-    <img src="https://api.codacy.com/project/badge/Grade/40a38e8e01834cd29e03bd89a30f6d2e"/>
+    <img src="https://img.shields.io/codacy/grade/40a38e8e01834cd29e03bd89a30f6d2e.svg"/>
   </a>
   &nbsp;
   <a href="https://travis-ci.org/DiscordForge/DiscordForge">
     <img src="https://travis-ci.org/DiscordForge/DiscordForge.svg?branch=master"/>
+  </a>
+  &nbsp;
+  <a href="https://github.com/DiscordForge/DiscordForge/master/LICENSE">
+  	<img src="https://img.shields.io/badge/license-GPL--3.0-blue.svg"/>
+  </a>
+  &nbsp;
+  <a href="http://waffle.io/DiscordForge/DiscordForge">
+	<img src="https://img.shields.io/waffle/label/DiscordForge/DiscordForge/Ready.svg"/>
   </a>
 </p>
 
