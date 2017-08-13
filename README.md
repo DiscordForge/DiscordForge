@@ -23,11 +23,16 @@
   <a href="http://waffle.io/DiscordForge/DiscordForge">
 	<img src="https://img.shields.io/waffle/label/DiscordForge/DiscordForge/Ready.svg"/>
   </a>
+  &nbsp;
+  <a href="https://greenkeeper.io">
+    <img src="https://badges.greenkeeper.io/DiscordForge/DiscordForge.svg"/>
+  </a>
 </p>
 
 # What is it?
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/DiscordForge/DiscordForge.svg)](https://greenkeeper.io/)
+
+
 DiscordForge is an unofficial plugin API for Discord. It allows people to write their own plugins and let people download them easily through the command line.
 
 # How does it work?
