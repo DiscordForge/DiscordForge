@@ -25,14 +25,11 @@
   </a>
   &nbsp;
   <a href="https://greenkeeper.io">
-    <img src="https://badges.greenkeeper.io/DiscordForge/DiscordForge.svg"/>
+    <img src="https://img.shields.io/badge/greenkeeper-enabled-green.svg"/>
   </a>
 </p>
 
 # What is it?
-
-
-
 DiscordForge is an unofficial plugin API for Discord. It allows people to write their own plugins and let people download them easily through the command line.
 
 # How does it work?
