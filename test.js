@@ -63,7 +63,7 @@ describe('Setup', () => {
 			checksum.file(path.join(dforgeDir, 'modloader', 'modloader.js'), (err, sum) => {
 				sumCopy = sum;
 			});
-			checksum.file('modloader.js', (err, sum) => {
+			checksum.file(path.join('./lib', 'modloader.js'), (err, sum) => {
 				sumCurrent = sum;
 			});
 			console.log('\n    Created hashes. Testing may now continue.');
