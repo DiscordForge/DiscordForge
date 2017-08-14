@@ -71,7 +71,7 @@ if (process.argv[2] === "-u") {
 					if (e1) throw e1;
 					fs.mkdir(path.join(dforgeDir, 'modloader'), e2 => {
 						if (e2) throw e2;
-						fs.writeFileSync(path.join(dforgeDir, 'modloader', 'modloader.js'), fs.readFileSync('modloader.js'));
+						fs.writeFileSync(path.join(dforgeDir, 'modloader', 'modloader.js'), fs.readFileSync(path.join('./lib', 'modloader.js')));
 					});
 				});
 			});

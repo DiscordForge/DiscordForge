@@ -25,7 +25,7 @@ const dforgeDir = path.join(os.homedir(), '.discordforge');
 const checksum = require('checksum');
 describe('Files', () => {
 	it('should have bootstrap.js', () => {
-		if (fs.existsSync('bootstrap.js') === false)
+		if (fs.existsSync(path.join('./lib', 'bootstrap.js')) === false)
 			throw new Error('File missing.');
 	});
 	it('should have index.js', () => {
@@ -33,7 +33,7 @@ describe('Files', () => {
 			throw new Error('File missing.');
 	});
 	it('should have modloader.js', () => {
-		if (fs.existsSync('modloader.js') === false)
+		if (fs.existsSync(path.join('./lib', 'modloader.js')) === false)
 			throw new Error('File missing.');
 	});
 	it('should have setup.js', () => {
@@ -41,7 +41,7 @@ describe('Files', () => {
 			throw new Error('File missing.');
 	});
 	it('should have LICENSE', () => {
-		if (fs.existsSync(path.join('..', 'LICENSE')) === false) // check for license in root directory, not src.
+		if (fs.existsSync('LICENSE') === false) // check for license in root directory, not src.
 			throw new Error('File missing.');
 	});
 });
@@ -63,7 +63,7 @@ describe('Setup', () => {
 			checksum.file(path.join(dforgeDir, 'modloader', 'modloader.js'), (err, sum) => {
 				sumCopy = sum;
 			});
-			checksum.file('modloader.js', (err, sum) => {
+			checksum.file(path.join('./lib', 'modloader.js'), (err, sum) => {
 				sumCurrent = sum;
 			});
 			console.log('\n    Created hashes. Testing may now continue.');

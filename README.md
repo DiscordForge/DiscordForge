@@ -13,16 +13,22 @@
   </a>
   &nbsp;
   <a href="https://www.codacy.com/app/LewisTehMinerz/DiscordForge?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DiscordForge/DiscordForge&amp;utm_campaign=Badge_Grade">
-    <img src="https://img.shields.io/codacy/grade/40a38e8e01834cd29e03bd89a30f6d2e.svg"/>
-  </a>
+    <img src="https://img.shields.io/codacy/grade/40a38e8e01834cd29e03bd89a30f6d2e.svg"/>
+  </a>
+  &nbsp;
+  <a href="https://greenkeeper.io">
+    <img src="https://img.shields.io/badge/greenkeeper-enabled-brightgreen.svg"/>
+  </a>
   &nbsp;
   <a href="https://github.com/DiscordForge/DiscordForge/master/LICENSE">
   	<img src="https://img.shields.io/badge/license-GPL--3.0-blue.svg"/>
   </a>
   &nbsp;
-  <a href="http://waffle.io/DiscordForge/DiscordForge">
-	<img src="https://img.shields.io/waffle/label/DiscordForge/DiscordForge/Ready.svg"/>
+  <a href="http://waffle.io/DiscordForge/DiscordForge">
+    <img src="https://img.shields.io/waffle/label/DiscordForge/DiscordForge/Ready.svg"/>
   </a>
+
+
 </p>
 
 # What is it?

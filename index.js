@@ -254,7 +254,7 @@ if (command == null || command == 'help') {
 				fs.writeFileSync(path.join(temp, 'index.js.bak'), fs.readFileSync(path.join(temp, 'index.js')));
 				fs.writeFile(path.join(temp, 'index.js'), inject, (e1) => {
 					if (e1) throw e1;
-					fs.writeFileSync(path.join(temp, 'discordforge.js'), fs.readFileSync(path.join(__dirname, 'bootstrap.js')));
+					fs.writeFileSync(path.join(temp, 'discordforge.js'), fs.readFileSync(path.join(__dirname, 'lib', 'bootstrap.js')));
 					spinner.text = 'Archiving...';
 					discordPids.forEach(o => {
 						try {
