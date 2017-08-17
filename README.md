@@ -17,7 +17,7 @@
     <img src="https://img.shields.io/badge/greenkeeper-enabled-brightgreen.svg"/>
   </a>
   <a href="https://github.com/DiscordForge/DiscordForge/master/LICENSE">
-  	<img src="https://img.shields.io/badge/license-GPL--3.0-blue.svg"/>
+  	<img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg"/>
   </a>
   <a href="http://waffle.io/DiscordForge/DiscordForge">
     <img src="https://img.shields.io/waffle/label/DiscordForge/DiscordForge/Ready.svg"/>
