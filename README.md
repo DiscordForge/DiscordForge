@@ -4,24 +4,24 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://ci.appveyor.com/project/LewisTehMinerz/discordforge">
-    <img src="https://ci.appveyor.com/api/projects/status/6dhyqopkjkphieug?svg=true"/>
-  </a>
-  <a href="https://travis-ci.org/DiscordForge/DiscordForge">
-    <img src="https://travis-ci.org/DiscordForge/DiscordForge.svg?branch=master"/>
-  </a>
-  <a href="https://www.codacy.com/app/LewisTehMinerz/DiscordForge?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DiscordForge/DiscordForge&amp;utm_campaign=Badge_Grade">
-    <img src="https://img.shields.io/codacy/grade/40a38e8e01834cd29e03bd89a30f6d2e.svg"/>
-  </a>
-  <a href="https://greenkeeper.io">
-    <img src="https://img.shields.io/badge/greenkeeper-enabled-brightgreen.svg"/>
-  </a>
-  <a href="https://github.com/DiscordForge/DiscordForge/master/LICENSE">
-  	<img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg"/>
-  </a>
-  <a href="http://waffle.io/DiscordForge/DiscordForge">
-    <img src="https://img.shields.io/waffle/label/DiscordForge/DiscordForge/Ready.svg"/>
-  </a>
+	<a href="https://ci.appveyor.com/project/LewisTehMinerz/discordforge">
+		<img src="https://ci.appveyor.com/api/projects/status/6dhyqopkjkphieug?svg=true"/>
+	</a>
+	<a href="https://travis-ci.org/DiscordForge/DiscordForge">
+		<img src="https://travis-ci.org/DiscordForge/DiscordForge.svg?branch=master"/>
+	</a>
+	<a href="https://www.codacy.com/app/LewisTehMinerz/DiscordForge?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DiscordForge/DiscordForge&amp;utm_campaign=Badge_Grade">
+		<img src="https://img.shields.io/codacy/grade/40a38e8e01834cd29e03bd89a30f6d2e.svg"/>
+	</a>
+	<a href="https://greenkeeper.io">
+		<img src="https://img.shields.io/badge/greenkeeper-enabled-brightgreen.svg"/>
+	</a>
+	<a href="https://github.com/DiscordForge/DiscordForge/master/LICENSE">
+		<img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg"/>
+	</a>
+	<a href="http://waffle.io/DiscordForge/DiscordForge">
+		<img src="https://img.shields.io/waffle/label/DiscordForge/DiscordForge/Ready.svg"/>
+	</a>
 </p>
 
 # What is it?
