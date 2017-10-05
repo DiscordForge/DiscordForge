@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -b",
-    "deploy": "node ./deploy.js",
+    "deploy": "node ./deploy.js"
   },
   "repository": {
     "type": "git",

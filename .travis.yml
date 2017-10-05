@@ -2,14 +2,14 @@ language: node_js
 node_js:
     - "8"
 before_install:
-- npm install -g npm@5
-- npm install -g greenkeeper-lockfile@1
+- npm install -g npm
+- npm install -g greenkeeper-lockfile
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 notifications:
     email: false
     webhooks:
-        secure: "eQez0FaplgAGV2pTUZGdU6RT1Jyvjn4krgvFgU/mHIyT3XmOmAVf4TtIUPJ1XPtpM5XUuyVNgOibF8dFzY1Xsl7n/Z8YCOrv8SsJdQ5r2CMRlX2eP5lSBD1M+eWy6gjQdtEwnkv4M1D6iXAXo8KTNDpKjIpMdJfUlt6rMoOf/jnrcqQxz631SkSI6ydhCJa3vilhhiFwVQFDl/2o5BY1edtBAwRcW4zGqGBIJ3jOEgRaiitfTy40gcyZBvJmxfArHt9fdEpiz1ekQEO4EWTM54igFLsEfEQt6egQLfdazRlB/S0dnvq8qNWT//5A+9SeibjXnQ1+/yJTnJmZWnwjaQcU2Hv1r0A5BJ/i05HYQ8ULtJB/YBz3TbYuHosUlbrVWek/QTXKw19gy8A60z/n+a/ZxnzqiL70YNHLauBV9Ihu/ygbLus8EVivwUOUUiVvFD4ue6SLwDWBWHCnPLw6tlt1oZ5CYTFjNsubC6Mp8KvIZ+Uy3y9X0ky9BTdjVQ2g5N0ShiyD+2pV7b6bNsn8sbaSohdrhu2RTIGS0BdriNbR0UGC9qrkZqoHEL2J2IP7VAKo7XjmsrBw9Zf4prLKL1DU1PKUZFQaxW8c6NQF8xU7WfudXIUdnUTT8w2hv2Pdx3nq0PQGs/Kcx+HGCv3xxuvKU19hrMexENYBlT778UY="
+        secure: "JAlGaGl9RTVYtPWlHQ+09oypJ60tub7T66tM2Q31+R4/A0IdmSbpgGjOWX74eOTxLeM8TbsS69CSQSpxLlI9yQFdGMSvInl6bX6r1/QphqTCiE+jR64MKsb47SMaTk4Bni6mM7TJuNLuGmYBE8y+QjNK6XJzmPyvZ78StOUyNKOCz58PNAEVJN/DabW0NBLtTW1ArKHBqQrhqYJAiUrsF0Lm/mC1MLWigpLqUKTi5hWG9NYUMQqaj8arScWPUwcsp4llhr40iMtjcrTervJrYGhCg5scF9IW4DXe0xAvCEDxDjpfG7Rin/jnNvQ67+BaWL880SmX1ClRZn3j7Mc3N0xieyVwZl5JwAV45lRC+a4xeICnBREfEtJDjUqXa/4O+7ELcb8u6g12ZPSccWnHgfec9QqoSXUxzl6hI8HfAHo0o6wxynUwg/U3uigMrp452yE8oMGLNzcLZrMzd9a9SKdaou5oYxdohwlWKOcHHsLCcUmFQGCS1aY3DOuJq7DKj8kckjkT7/wbMAEAXyJkip7VI4Zdqau+ef9MNMkka0eh94VKqQJYPRpfVfTRcLv5IbdvFt/jBNQjjQ+yaExzSiMef80WgWuSLSSPC7W1po75H3pzJjYYpi93+Ki7tQ+HhIsZIodZuV/NUglITUEvvweSst4rEiKDzjReT6Bm4f0="
     on_success: always
     on_failure: change
     on_cancel: never
