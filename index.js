@@ -17,7 +17,7 @@
 */
 
 // DiscordForge details
-const VERSION = '1.0';
+const VERSION = require('./package.json').version || "unknown";
 process.title = `DiscordForge ${VERSION}`;
 
 // parse commands
@@ -64,6 +64,20 @@ const gSpin = ora({
 		]
 	}
 });
+const boilerplate = {
+	metadata: {
+		"name": "ExamplePlugin",
+		"version": "1.0.0",
+		"description": "An example plugin boilerplate to help the developer get started with making their own plugin."
+	},
+	script: 
+	"let plugin = {\n" +
+    "	init: function() {\n" +
+	"		console.log('Example plugin loaded!');\n" +
+    "	}\n" +
+	"}\n" +
+	"module.exports = plugin;"
+}
 
 // recursive deletion for directory.
 const rmdir = function(dir, cb) {
@@ -433,10 +447,13 @@ if (command == null || command == 'help') {
 } else if (command == 'plugin') {
 	let subcommand = _[0];
 	let plugin = _[1];
-	/**if (subcommand == 'install') {
+	if (subcommand == 'init') {
 		
+		console.log('Creating a base plugin...');
+		fs.writeFileSync(path.join(process.cwd(), 'plugin.json'), JSON.stringify(boilerplate.metadata, null, 2));
+		fs.writeFileSync(path.join(process.cwd(), 'plugin.js'), boilerplate.script);
+		console.log('Done.');
 	} else {
 		console.log('error: no subcommand - try \'discordforge help\'');
-	}*/
-	console.log('Plugin command has not yet been implemented, as there are no plugins to test with. In DiscordForge 1.0.1, this will mean something.\n\nDevelopers: Prepare your plugin for the 1.0.1 update as well. As well as creating an `init` function, create an `uninit` funtion.');
+	}
 }

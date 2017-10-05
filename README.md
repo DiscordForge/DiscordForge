@@ -4,9 +4,6 @@
   </a>
 </p>
 <p align="center">
-	<a href="https://ci.appveyor.com/project/LewisTehMinerz/discordforge">
-		<img src="https://ci.appveyor.com/api/projects/status/6dhyqopkjkphieug?svg=true"/>
-	</a>
 	<a href="https://travis-ci.org/DiscordForge/DiscordForge">
 		<img src="https://travis-ci.org/DiscordForge/DiscordForge.svg?branch=master"/>
 	</a>

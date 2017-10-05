@@ -1,10 +1,11 @@
 {
   "name": "discordforge",
-  "version": "0.0.0",
+  "version": "1.1.0-alpha",
   "description": "DiscordForge - a plugin system for Discord.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -b"
+    "test": "mocha -b",
+    "deploy": "node ./deploy.js",
   },
   "repository": {
     "type": "git",
