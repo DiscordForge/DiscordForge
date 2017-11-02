@@ -20,7 +20,7 @@
     "discordforge": "./index.js"
   },
   "dependencies": {
-    "asar": "^0.13.0",
+    "asar": "^0.14.0",
     "command-line-commands": "^2.0.1",
     "command-line-usage": "^4.0.0",
     "minimist": "^1.2.0",
