@@ -1,0 +1,14 @@
+{
+  "name": "modloader",
+  "version": "1.0.0",
+  "description": "DiscordForge Modloader",
+  "main": "modloader.js",
+  "scripts": {
+    "test": "echo No test command"
+  },
+  "author": "LewisTehMinerz",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "yamljs": "^0.3.0"
+  }
+}

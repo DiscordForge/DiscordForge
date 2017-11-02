@@ -203,6 +203,7 @@ if (!fs.existsSync(configPath)) {
 if (command == null || command == 'help') {
     console.log(usage(help));
 } else if (command == 'inject') {
+	console.log('The injection process may appear to be frozen at times. It is not. Please do not terminate DiscordForge while it is doing this operation. We will not provide support if you break Discord or DiscordForge.');
     // find discord application path
     var discordPath = null;
 	var discordBin = null;
@@ -291,6 +292,7 @@ if (command == null || command == 'help') {
 		}
     });
 } else if (command == 'uninject') {
+	console.log('The uninjection process may appear to be frozen at times. It is not. Please do not terminate DiscordForge while it is doing this operation. We will not provide support if you break Discord or DiscordForge.');
     // find discord application path
     var discordPath = null;
 	var discordBin = null;
@@ -448,7 +450,6 @@ if (command == null || command == 'help') {
 	let subcommand = _[0];
 	let plugin = _[1];
 	if (subcommand == 'init') {
-		
 		console.log('Creating a base plugin...');
 		fs.writeFileSync(path.join(process.cwd(), 'plugin.json'), JSON.stringify(boilerplate.metadata, null, 2));
 		fs.writeFileSync(path.join(process.cwd(), 'plugin.js'), boilerplate.script);

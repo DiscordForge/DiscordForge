@@ -70,10 +70,18 @@ if (process.argv[2] === "-u") {
 					fs.mkdir(path.join(dforgeDir, 'modloader'), e2 => {
 						if (e2) throw e2;
 						fs.writeFileSync(path.join(dforgeDir, 'modloader', 'modloader.js'), fs.readFileSync(path.join('./lib', 'modloader.js')));
+						fs.writeFileSync(path.join(dforgeDir, 'modloader', 'package.json'), fs.readFileSync(path.join('./lib', 'package.json')));
+						console.log('Installing modloader...');
+						let inst2 = spawn('npm', ['install', '--only=prod'], { shell: true, cwd: path.join(dforgeDir, 'modloader')});
+						inst2.stdout.on('data', (data) => {
+							process.stdout.write(data.toString());
+						});
+						inst2.on('exit', () => {
+							console.log('Installed DiscordForge.');
+						});
 					});
 				});
 			});
-			console.log('Installed DiscordForge.');
 		});
 	});
 }
