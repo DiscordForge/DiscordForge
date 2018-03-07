@@ -30,6 +30,6 @@
   },
   "devDependencies": {
     "checksum": "^0.1.1",
-    "mocha": "^4.0.0"
+    "mocha": "^5.0.4"
   }
 }
